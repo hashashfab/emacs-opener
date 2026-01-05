@@ -1,25 +1,56 @@
-import { closeMainWindow, PopToRootType } from "@raycast/api";
+import { closeMainWindow, showToast, Toast } from "@raycast/api";
 import { spawn } from "child_process";
+import fs from "fs";
+import os from "os";
+import path from "path";
 
-const EMACS_PATH = "C:\\tools\\emacs\\bin\\runemacs.exe";
+function getEmacsPath(): string {
+  const homeDir = os.homedir();
+
+  // Potential paths for Emacs
+  const paths = [
+    // Scoop
+    path.join(homeDir, "scoop", "apps", "emacs", "current", "bin", "runemacs.exe"),
+    // Chocolatey / Default install
+    "C:\\ProgramData\\chocolatey\\bin\\runemacs.exe",
+    "C:\\tools\\emacs\\bin\\runemacs.exe",
+  ];
+
+  for (const p of paths) {
+    if (fs.existsSync(p)) {
+      return p;
+    }
+  }
+
+  // Fallback to expecting it in PATH
+  return "runemacs.exe";
+}
 
 export default async function Command() {
-  // 1. Close Raycast IMMEDIATELY
-  // We use clearRootSearch: true so next time you open Raycast, it's fresh.
   await closeMainWindow({ clearRootSearch: true });
 
+  const emacsPath = getEmacsPath();
+
   try {
-    // 2. Spawn the process in the background
-    const child = spawn(EMACS_PATH, [], {
+    const child = spawn(emacsPath, [], {
       detached: true,
       stdio: "ignore",
     });
 
-    // 3. Unreference the child so the Node script can exit immediately
-    // without waiting for Emacs to close.
+    child.on("error", (err) => {
+      showToast({
+        style: Toast.Style.Failure,
+        title: "Failed to launch Emacs",
+        message: err.message,
+      });
+    });
+
     child.unref();
-    
   } catch (error) {
-    console.error("Failed to launch Emacs:", error);
+    showToast({
+      style: Toast.Style.Failure,
+      title: "Error",
+      message: error instanceof Error ? error.message : String(error),
+    });
   }
 }

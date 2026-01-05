@@ -1,16 +1,16 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "open-emacs",
-  "title": "Open Emacs",
-  "description": "Launches Emacs from local path",
+  "title": "Emacs",
+  "description": "Seamlessly launch GNU Emacs from Raycast.",
   "icon": "emacs_512.png",
   "author": "Kerim",
   "license": "MIT",
   "commands": [
     {
       "name": "emacs",
-      "title": "Launch Emacs",
-      "description": "Opens the local Emacs executable",
+      "title": "Open Emacs",
+      "description": "Launches the detected Emacs executable",
       "mode": "no-view"
     }
   ],
