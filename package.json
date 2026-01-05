@@ -3,7 +3,7 @@
   "name": "open-emacs",
   "title": "Open Emacs",
   "description": "Launches Emacs from local path",
-  "icon": "emacs_512.png",
+  "icon": "assets/emacs_512.png",
   "author": "Kerim",
   "license": "MIT",
   "commands": [
