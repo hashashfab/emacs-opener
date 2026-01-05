@@ -1,23 +1,28 @@
 import { closeMainWindow, showToast, Toast } from "@raycast/api";
 import { spawn } from "child_process";
 import fs from "fs";
+import os from "os";
+import path from "path";
 
 function getEmacsPath(): string {
-  // Potential paths for Emacs on macOS
-  const paths = [
-    "/Applications/Emacs.app/Contents/MacOS/Emacs", // Standard App Install
-    "/opt/homebrew/bin/emacs", // Homebrew (Apple Silicon)
-    "/usr/local/bin/emacs", // Homebrew (Intel)
-  ];
-
-  for (const p of paths) {
-    if (fs.existsSync(p)) {
-      return p;
+  if (process.platform === "win32") {
+    const homeDir = os.homedir();
+    const paths = [
+      path.join(homeDir, "scoop", "apps", "emacs", "current", "bin", "runemacs.exe"),
+      "C:\\ProgramData\\chocolatey\\bin\\runemacs.exe",
+      "C:\\tools\\emacs\\bin\\runemacs.exe",
+    ];
+    for (const p of paths) {
+      if (fs.existsSync(p)) return p;
     }
+    return "runemacs.exe";
+  } else {
+    const paths = ["/Applications/Emacs.app/Contents/MacOS/Emacs", "/opt/homebrew/bin/emacs", "/usr/local/bin/emacs"];
+    for (const p of paths) {
+      if (fs.existsSync(p)) return p;
+    }
+    return "emacs";
   }
-
-  // Fallback to expecting it in PATH
-  return "emacs";
 }
 
 export default async function Command() {

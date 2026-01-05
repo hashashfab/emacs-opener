@@ -6,9 +6,8 @@ Seamlessly launch GNU Emacs from Raycast. This extension automatically detects c
 
 - 🚀 **Instant Launch**: Opens Emacs immediately.
 - 🔍 **Auto-Detection**: Smartly finds your Emacs installation in:
-  - `/Applications/Emacs.app` (Emacs for Mac OS X / Standard Install)
-  - `/opt/homebrew/bin/emacs` (Homebrew Apple Silicon)
-  - `/usr/local/bin/emacs` (Homebrew Intel)
+  - **macOS**: `/Applications`, Homebrew, or PATH.
+  - **Windows**: Scoop, Chocolatey, `C:\tools\emacs`, or PATH.
 - ⚡ **Background Process**: Spawns Emacs as a detached process so you can close the terminal/launcher usage.
 
 ## Usage

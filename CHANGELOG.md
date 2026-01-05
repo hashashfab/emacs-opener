@@ -3,4 +3,4 @@
 ## [Initial Release] - {PR_MERGE_DATE}
 
 - Initial release of Emacs Opener for Raycast.
-- Supports detecting Emacs from `/Applications`, Homebrew, and PATH.
+- Supports detecting Emacs on **macOS** (/Applications, Homebrew) and **Windows** (Scoop, Chocolatey, C:\tools).
