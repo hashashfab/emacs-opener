@@ -8,7 +8,7 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "index",
+      "name": "emacs",
       "title": "Launch Emacs",
       "description": "Opens the local Emacs executable",
       "mode": "no-view"
